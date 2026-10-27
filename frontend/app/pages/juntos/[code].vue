@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { fill } from '#shared/i18n'
-import type { WatchState } from '#shared/types'
+import type { WatchMessage, WatchState } from '#shared/types'
 
 const { t } = useLocale()
 const route = useRoute()
@@ -11,6 +11,7 @@ const copied = ref(false)
 const joinError = ref('')
 const joining = ref(false)
 const chat = ref<HTMLElement | null>(null)
+const replyTo = ref<WatchMessage | null>(null)
 
 const { data, error } = await useFetch<WatchState>(() => `/api/watch/${code.value}`)
 const {
@@ -69,14 +70,35 @@ async function join() {
   }
 }
 
+function readMessage(body: string) {
+  if (!body.startsWith('\u001f')) return { replyAuthor: '', replyExcerpt: '', text: body }
+  const [, replyAuthor = '', replyExcerpt = '', text = ''] = body.split('\u001f')
+  return { replyAuthor, replyExcerpt, text }
+}
+
+function plainText(body: string) {
+  return readMessage(body).text
+}
+
+function reply(message: WatchMessage) {
+  replyTo.value = message
+}
+
 async function send() {
-  const text = draft.value
+  const text = draft.value.trim()
+  if (!text) return
+  const reply = replyTo.value
+  const payload = reply
+    ? `\u001f${reply.author}\u001f${plainText(reply.body).slice(0, 80)}\u001f${text}`
+    : text
   draft.value = ''
+  replyTo.value = null
   try {
-    await sendMessage(text)
+    await sendMessage(payload)
   }
   catch (cause) {
     draft.value = text
+    replyTo.value = reply
     joinError.value = explainError(cause, t.value.errors)
   }
 }
@@ -111,7 +133,7 @@ useHead({ title: 'Salircontigo' })
       <button class="btn-yes mt-4" type="submit" :disabled="joining">{{ t.watchJoinButton }}</button>
     </form>
 
-    <div v-else-if="data" class="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
+    <div v-else-if="data" class="grid grid-cols-[minmax(0,1.4fr)_minmax(11.5rem,22rem)] items-stretch gap-3">
       <section class="overflow-hidden rounded-[28px] bg-white shadow-[0_18px_50px_rgba(176,96,136,0.12)]">
         <div class="relative aspect-video bg-black">
           <video ref="remoteVideo" autoplay playsinline class="h-full w-full object-contain" :muted="sharing || needsSound" />
@@ -138,15 +160,28 @@ useHead({ title: 'Salircontigo' })
         <p class="bg-rose-50 px-4 py-3 text-xs font-semibold leading-relaxed text-wine/70">{{ t.watchDrm }}</p>
       </section>
 
-      <aside class="card-panel flex h-[min(70vh,640px)] min-h-80 flex-col">
+      <aside class="card-panel flex min-h-[22rem] max-h-[78vh] flex-col">
         <h1 class="font-display text-3xl leading-none">{{ t.watchChat }}</h1>
         <p class="mt-1 text-xs font-extrabold uppercase tracking-wide text-rose-400">{{ presence }}</p>
         <div ref="chat" class="mt-3 flex flex-1 flex-col gap-2 overflow-y-auto pr-1">
-          <p v-for="message in data.messages" :key="message.id" class="rounded-2xl bg-rose-50 px-3 py-2 text-sm font-semibold">
-            <span class="mb-0.5 block text-xs font-extrabold text-rose-400">{{ message.author }}</span>
-            {{ message.body }}
-          </p>
+          <article
+            v-for="message in data.messages"
+            :key="message.id"
+            class="max-w-[92%] rounded-2xl px-3 py-2 text-sm font-semibold"
+            :class="message.author === data.name ? 'self-end bg-rose-500 text-white' : 'self-start bg-rose-50 text-wine'"
+          >
+            <p class="mb-0.5 text-xs font-extrabold" :class="message.author === data.name ? 'text-white/80' : 'text-rose-400'">{{ message.author }}</p>
+            <p v-if="readMessage(message.body).replyAuthor" class="mb-1 rounded-xl px-2 py-1 text-xs" :class="message.author === data.name ? 'bg-white/15' : 'bg-white'">
+              {{ readMessage(message.body).replyAuthor }}: {{ readMessage(message.body).replyExcerpt }}
+            </p>
+            <p>{{ readMessage(message.body).text }}</p>
+            <button type="button" class="mt-1 text-xs font-extrabold underline" @click="reply(message)">{{ t.watchReply }}</button>
+          </article>
         </div>
+        <p v-if="replyTo" class="mt-3 flex items-start justify-between gap-2 rounded-2xl bg-rose-50 px-3 py-2 text-xs font-bold text-wine">
+          <span>{{ fill(t.watchReplying, { name: replyTo.author }) }}: {{ plainText(replyTo.body) }}</span>
+          <button type="button" class="shrink-0 text-rose-500" @click="replyTo = null">{{ t.watchCancelReply }}</button>
+        </p>
         <form class="mt-3 flex min-w-0 gap-2" @submit.prevent="send">
           <input v-model="draft" class="soft-input min-w-0 flex-1" maxlength="400" :placeholder="t.watchChatPlaceholder">
           <button class="btn-yes shrink-0 text-sm" type="submit" :disabled="!draft.trim()">{{ t.watchSend }}</button>

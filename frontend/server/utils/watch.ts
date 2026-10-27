@@ -279,7 +279,7 @@ export async function signalRoom(event: H3Event, code: string, kind: string, pay
 }
 
 export async function postMessage(event: H3Event, code: string, rawBody: string): Promise<WatchMessage> {
-  const body = rawBody.trim().slice(0, 400)
+  const body = rawBody.trim().slice(0, 600)
   if (!body) fail(400, 'invalid')
   const { db, room, role, name } = await openRoom(event, code)
   requireMember(role)
