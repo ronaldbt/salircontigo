@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defaultDatePrompts, foodLabel, formatInviteDate } from '#shared/defaults'
+import { defaultDatePrompts, defaultTimes, foodLabel, formatInviteDate } from '#shared/defaults'
 import { fill } from '#shared/i18n'
 import { LANGS, isLang, type Invite, type InviteResponse, type Lang, type PlayPrompt } from '#shared/types'
 
@@ -61,8 +61,8 @@ function removeFood(foodId: string) {
 }
 
 function addTime() {
-  if (!form.value || form.value.times.length >= 12) return
-  const candidate = ['17:00', '18:00', '19:00', '20:00', '21:00', '12:00'].find(item => !form.value?.times.includes(item)) || '18:30'
+  if (!form.value || form.value.times.length >= 24) return
+  const candidate = defaultTimes().find(item => !form.value?.times.includes(item)) || '08:00'
   form.value.times.push(candidate)
 }
 

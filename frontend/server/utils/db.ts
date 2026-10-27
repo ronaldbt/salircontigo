@@ -1,4 +1,5 @@
 import type { H3Event } from 'h3'
+import { normalizeTimes } from '#shared/defaults'
 import type { Invite, InviteResponse, User } from '#shared/types'
 import { MAX_INVITES } from '#shared/types'
 
@@ -109,7 +110,7 @@ function mapInvite(row: Row): Invite {
     defaultLang: row.default_lang === 'en' || row.default_lang === 'pt' ? row.default_lang : 'es',
     copy: json(row.copy, {} as Invite['copy']),
     foods: json(row.foods, []),
-    times: json(row.times, []),
+    times: normalizeTimes(json(row.times, [])),
     whatsapp: String(row.whatsapp ?? ''),
     callmebotKey: String(row.callmebot_key ?? ''),
     createdAt: iso(row.created_at),

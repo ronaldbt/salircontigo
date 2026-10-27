@@ -171,7 +171,7 @@ export function applyInviteUpdate(invite: Invite, input: Partial<Invite>, slugs:
   const times = (Array.isArray(input.times) ? input.times : invite.times)
     .map(item => clip(item, 5))
     .filter(item => TIME_RE.test(item))
-  const uniqueTimes = [...new Set(times)].slice(0, 12)
+  const uniqueTimes = [...new Set(times)].slice(0, 24)
   if (!uniqueTimes.length) fail(400, 'invalid')
 
   const whatsapp = normalizePhone(String(input.whatsapp ?? ''))

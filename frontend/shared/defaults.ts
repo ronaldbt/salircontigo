@@ -241,8 +241,18 @@ export function defaultFoods(): FoodItem[] {
   return structuredClone(foods)
 }
 
+const LEGACY_TIMES = ['17:00', '18:00', '19:00', '20:00', '21:00']
+
 export function defaultTimes(): string[] {
-  return ['17:00', '18:00', '19:00', '20:00', '21:00']
+  return Array.from({ length: 24 }, (_, index) => {
+    const hour = (8 + index) % 24
+    return `${String(hour).padStart(2, '0')}:00`
+  })
+}
+
+export function normalizeTimes(times: string[]): string[] {
+  const sameLegacy = times.length === LEGACY_TIMES.length && times.every((item, index) => item === LEGACY_TIMES[index])
+  return sameLegacy || !times.length ? defaultTimes() : times
 }
 
 export function renderTemplate(template: string, vars: Record<string, string>) {
