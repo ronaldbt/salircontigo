@@ -37,6 +37,15 @@ const copy = computed(() => {
   return invite.value.copy[lang.value] || invite.value.copy[invite.value.defaultLang]
 })
 
+const questionText = computed(() => {
+  const question = copy.value?.question?.trim() || ''
+  const name = invite.value?.name?.trim() || ''
+  if (!question || !name) return question
+  if (question.toLocaleLowerCase().includes(name.toLocaleLowerCase())) return question
+  if (question.endsWith('?')) return `${question.slice(0, -1)}, ${name}?`
+  return `${question}, ${name}`
+})
+
 const sequence = computed<Step[]>(() => {
   const steps: Step[] = ['ask']
   if (!invite.value) return steps
@@ -146,7 +155,7 @@ async function nextPrompt() {
 }
 
 useHead(computed(() => ({
-  title: copy.value ? `${copy.value.question} · Salircontigo` : 'Salircontigo',
+  title: questionText.value ? `${questionText.value} · Salircontigo` : 'Salircontigo',
 })))
 </script>
 
@@ -178,13 +187,13 @@ useHead(computed(() => ({
           <div class="mx-auto mb-5 h-28 w-28 overflow-hidden rounded-[22px] bg-[#f6ebe4] shadow-inner">
             <img
               :src="photoFailed || !invite.photoUrl ? '/pug.svg' : invite.photoUrl"
-              :alt="copy.question"
+              :alt="questionText"
               class="h-full w-full object-cover"
               @error="photoFailed = true"
             >
           </div>
           <h1 class="font-display text-[1.7rem] leading-tight">
-            <span aria-hidden="true">🌸 </span>{{ copy.question }}<span aria-hidden="true"> 🌸</span>
+            <span aria-hidden="true">🌸 </span>{{ questionText }}<span aria-hidden="true"> 🌸</span>
           </h1>
           <p v-if="noAttempts >= 3" class="mt-3 text-sm font-bold text-fuchsia-400">{{ copy.niceTry }}</p>
           <div class="mt-6 flex items-center justify-center gap-3">

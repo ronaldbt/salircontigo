@@ -256,8 +256,9 @@ useHead({ title: 'Salircontigo' })
           <p class="text-sm font-extrabold text-rose-500">{{ form.kind === 'sorry' ? t.templateSorry : t.templateDate }}</p>
           <label class="field">
             {{ t.inviteName }}
-            <input v-model="form.name" required minlength="2">
+            <input v-model="form.name" required minlength="2" placeholder="Ana">
           </label>
+          <p class="-mt-2 text-xs text-wine/60">{{ t.inviteNameHint }}</p>
           <label class="field">
             {{ t.slug }}
             <input v-model="form.slug" required pattern="[a-z0-9]+(-[a-z0-9]+)*" minlength="3">

@@ -95,7 +95,7 @@ useHead({ title: 'Salircontigo' })
       </div>
       <label class="field">
         {{ t.inviteName }}
-        <input v-model="draftName" type="text" required minlength="2" :placeholder="t.inviteNameHint">
+        <input v-model="draftName" type="text" required minlength="2" placeholder="Ana">
       </label>
       <p class="mt-2 text-xs text-wine/60">{{ t.inviteNameHint }}</p>
       <p v-if="message" class="mt-2 text-sm font-bold text-rose-500">{{ message }}</p>
