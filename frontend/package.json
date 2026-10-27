@@ -1,0 +1,29 @@
+{
+  "name": "citasi",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "build:pages": "nuxt build --preset cloudflare_pages",
+    "dev": "nuxt dev --host 127.0.0.1 --port 3004",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "db:setup": "node server/db/import.mjs",
+    "db:remote": "wrangler d1 migrations apply citasi --remote",
+    "deploy": "nuxt build --preset cloudflare_pages && wrangler pages deploy dist",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@nuxtjs/tailwindcss": "6.14.0",
+    "nuxt": "^4.6.2",
+    "vue": "^3.5.43",
+    "vue-router": "^5.4.0"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "^1.17.0",
+    "eslint": "^10.13.0",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.151.1"
+  }
+}

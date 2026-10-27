@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#__nuxt {
+  min-height: 100%;
+}
+
+body {
+  font-family: Nunito, ui-sans-serif, system-ui, sans-serif;
+  color: #6d3048;
+  background: #fde8f3;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+.bg-scene {
+  background:
+    radial-gradient(900px 520px at 50% -10%, #ffe4f2 0%, transparent 58%),
+    radial-gradient(640px 480px at 100% 100%, #f0e4ff 0%, transparent 52%),
+    linear-gradient(180deg, #fde8f3 0%, #f7d5ea 48%, #f4e9f8 100%);
+}
+
+.font-display {
+  font-family: Fraunces, Georgia, serif;
+  font-optical-sizing: auto;
+}
+
+.card-invite {
+  width: 100%;
+  max-width: 440px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.96);
+  padding: 2rem 1.5rem 1.5rem;
+  box-shadow: 0 24px 60px rgba(176, 96, 136, 0.16);
+}
+
+.card-panel {
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.94);
+  padding: 1.15rem 1.2rem;
+  box-shadow: 0 12px 36px rgba(176, 96, 136, 0.08);
+}
+
+.btn-yes,
+.btn-wide,
+.btn-soft,
+.runaway {
+  border: 0;
+  cursor: pointer;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+}
+
+.btn-yes,
+.runaway,
+.btn-wide {
+  color: white;
+}
+
+.btn-yes {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #fb7185, #f43f5e);
+  padding: 0.7rem 1.5rem;
+  box-shadow: 0 10px 24px rgba(244, 63, 94, 0.28);
+}
+
+.btn-wide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #fb7185, #f43f5e);
+  padding: 0.9rem 1.2rem;
+  box-shadow: 0 10px 24px rgba(251, 113, 133, 0.25);
+}
+
+.btn-soft {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: white;
+  color: #6d3048;
+  padding: 0.55rem 0.9rem;
+  box-shadow: 0 6px 16px rgba(176, 96, 136, 0.08);
+}
+
+.btn-yes:disabled,
+.btn-wide:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.runaway {
+  border-radius: 999px;
+  background: linear-gradient(90deg, #e879f9, #a855f7);
+  padding: 0.62rem 1.05rem;
+  box-shadow: 0 10px 24px rgba(168, 85, 247, 0.3);
+  touch-action: none;
+  user-select: none;
+}
+
+.runaway-fixed {
+  position: fixed;
+  z-index: 80;
+  transition: left 0.16s ease-out, top 0.16s ease-out;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.field input,
+.field textarea,
+.field select,
+.soft-input {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid #f3d0df;
+  background: white;
+  padding: 0.75rem 0.9rem;
+  font-weight: 600;
+  color: #6d3048;
+  outline: none;
+}
+
+.field textarea {
+  min-height: 92px;
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus,
+.soft-input:focus {
+  border-color: #fb7185;
+}
+
+.select-field {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23c08497' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  padding-right: 2.4rem;
+}
+
+.petal {
+  position: absolute;
+  animation: floaty 7s ease-in-out infinite;
+}
+
+.rise-enter-active,
+.rise-leave-active {
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.rise-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.rise-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .petal,
+  .rise-enter-active,
+  .rise-leave-active,
+  .runaway-fixed {
+    animation: none;
+    transition: none;
+  }
+}
