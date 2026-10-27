@@ -4,17 +4,23 @@ import { MAX_INVITES, type PublicUser, type User } from '#shared/types'
 import { fail, findUserById, sqlFor } from './db'
 
 const COOKIE = 'salircontigo_session'
+// Workers rechaza más de 100000 vueltas y el plan gratuito corta cerca de 10 ms de CPU.
+const ITERATIONS = 10000
+const LEGACY_ITERATIONS = 120000
 
 export function hashPassword(password: string, salt = randomBytes(16).toString('hex')) {
-  const passwordHash = pbkdf2Sync(password, salt, 120000, 32, 'sha256').toString('hex')
+  const passwordHash = pbkdf2Sync(password, salt, ITERATIONS, 32, 'sha256').toString('hex')
   return { passwordHash, salt }
 }
 
 export function verifyPassword(password: string, hash: string, salt: string) {
-  const next = pbkdf2Sync(password, salt, 120000, 32, 'sha256')
   const prev = Buffer.from(hash, 'hex')
-  if (next.length !== prev.length) return false
-  return timingSafeEqual(next, prev)
+  const rounds = [ITERATIONS]
+  if (!process.env.CF_PAGES) rounds.push(LEGACY_ITERATIONS)
+  return rounds.some((count) => {
+    const next = pbkdf2Sync(password, salt, count, 32, 'sha256')
+    return next.length === prev.length && timingSafeEqual(next, prev)
+  })
 }
 
 export function sessionSecret(event?: H3Event) {
