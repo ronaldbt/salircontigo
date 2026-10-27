@@ -154,9 +154,40 @@ async function nextPrompt() {
   advance('play')
 }
 
-useHead(computed(() => ({
-  title: questionText.value ? `${questionText.value} · Salircontigo` : 'Salircontigo',
-})))
+const requestUrl = useRequestURL()
+
+const ogDescription = computed(() => {
+  const sorry = invite.value?.kind === 'sorry'
+  const lines = {
+    es: sorry ? 'Una invitación para hacer las paces.' : 'Una invitación para salir.',
+    en: sorry ? 'An invitation to make things right.' : 'An invitation to go out.',
+    pt: sorry ? 'Um convite para fazer as pazes.' : 'Um convite para sair.',
+  }
+  return lines[lang.value]
+})
+
+useHead(computed(() => {
+  const title = questionText.value || 'Salircontigo'
+  const image = new URL('/og.jpg', requestUrl.origin).href
+  const page = new URL(route.path, requestUrl.origin).href
+  return {
+    title: questionText.value ? `${title} · Salircontigo` : 'Salircontigo',
+    meta: [
+      { name: 'description', content: ogDescription.value },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:site_name', content: 'Salircontigo' },
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: ogDescription.value },
+      { property: 'og:url', content: page },
+      { property: 'og:image', content: image },
+      { property: 'og:image:alt', content: 'Rosas y flores de cerezo' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: title },
+      { name: 'twitter:description', content: ogDescription.value },
+      { name: 'twitter:image', content: image },
+    ],
+  }
+}))
 </script>
 
 <template>
