@@ -2,7 +2,7 @@ import { getUi } from '#shared/i18n'
 import { isLang, type Lang } from '#shared/types'
 
 export function useLocale() {
-  const locale = useCookie<Lang>('citasi_lang', {
+  const locale = useCookie<Lang>('salircontigo_lang', {
     default: () => 'es',
     sameSite: 'lax',
     maxAge: 60 * 60 * 24 * 365,

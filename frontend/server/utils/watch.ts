@@ -5,7 +5,7 @@ import { readSession, sessionSecret } from './auth'
 import { fail, findUserById, sqlFor, type Db } from './db'
 import { clearLive } from './live-hub'
 
-const COOKIE = 'citasi_watch'
+const COOKIE = 'salircontigo_watch'
 
 type RoomRow = {
   id: string
@@ -96,7 +96,7 @@ export async function openRoom(event: H3Event, code: string) {
   const db = await sqlFor(event)
   const room = await roomByCode(db, code)
   if (!room) fail(404, 'not_found')
-  const session = readSession(getCookie(event, 'citasi_session'), event)
+  const session = readSession(getCookie(event, 'salircontigo_session'), event)
   const user = session ? await findUserById(db, session.userId) : null
   const guest = readGuest(event)
   let role: WatchRole = ''

@@ -201,7 +201,7 @@ function foodLine(item: InviteResponse) {
   return foodLabel(form.value.foods, item.foodId, item.lang)
 }
 
-useHead({ title: 'Citasi' })
+useHead({ title: 'Salircontigo' })
 </script>
 
 <template>

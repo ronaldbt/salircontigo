@@ -146,13 +146,13 @@ async function nextPrompt() {
 }
 
 useHead(computed(() => ({
-  title: copy.value ? `${copy.value.question} · Citasi` : 'Citasi',
+  title: copy.value ? `${copy.value.question} · Salircontigo` : 'Salircontigo',
 })))
 </script>
 
 <template>
   <div class="flex min-h-dvh items-center justify-center px-4 py-16">
-    <NuxtLink to="/" class="absolute left-4 top-4 z-20 font-display text-2xl text-wine/80">citasi</NuxtLink>
+    <NuxtLink to="/" class="absolute left-4 top-4 z-20 font-display text-2xl text-wine/80">salircontigo</NuxtLink>
 
     <div v-if="invite && invite.languages.length > 1" class="absolute right-4 top-4 z-20 flex rounded-full bg-white/80 p-1 text-xs font-extrabold shadow-sm">
       <button

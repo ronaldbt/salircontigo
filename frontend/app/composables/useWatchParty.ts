@@ -179,7 +179,7 @@ export function useWatchParty(state: Ref<WatchState | null>) {
           body: buffer,
           headers: {
             'content-type': 'application/octet-stream',
-            'x-citasi-mime': next.mimeType || mime,
+            'x-salircontigo-mime': next.mimeType || mime,
           },
         }).catch(() => {})
       })

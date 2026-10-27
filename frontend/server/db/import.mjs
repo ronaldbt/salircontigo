@@ -4,7 +4,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..')
-const file = join(root, '.data', 'citasi.sqlite')
+const file = join(root, '.data', 'salircontigo.sqlite')
 mkdirSync(dirname(file), { recursive: true })
 
 const db = new DatabaseSync(file)

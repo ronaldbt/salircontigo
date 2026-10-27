@@ -67,7 +67,7 @@ async function copyLink(invite: InviteCard) {
   copiedId.value = invite.id
 }
 
-useHead({ title: 'Citasi' })
+useHead({ title: 'Salircontigo' })
 </script>
 
 <template>

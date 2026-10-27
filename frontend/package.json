@@ -1,5 +1,5 @@
 {
-  "name": "citasi",
+  "name": "salircontigo",
   "type": "module",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "db:setup": "node server/db/import.mjs",
-    "db:remote": "wrangler d1 migrations apply citasi --remote",
+    "db:remote": "wrangler d1 migrations apply salircontigo --remote",
     "deploy": "nuxt build --preset cloudflare_pages && wrangler pages deploy dist",
     "lint": "eslint ."
   },

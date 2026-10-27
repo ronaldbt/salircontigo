@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     port: 3004,
   },
   runtimeConfig: {
-    sessionSecret: 'citasi-dev-secret-change-me',
+    sessionSecret: 'salircontigo-dev-secret-change-me',
   },
   nitro: {
     preset: process.env.CF_PAGES ? 'cloudflare_pages' : undefined,
@@ -26,7 +26,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'Citasi',
+      title: 'Salircontigo',
       htmlAttrs: { lang: 'es' },
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },

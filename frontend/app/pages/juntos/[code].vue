@@ -91,7 +91,7 @@ watch(() => data.value?.messages.length, async () => {
   if (chat.value) chat.value.scrollTop = chat.value.scrollHeight
 })
 
-useHead({ title: 'Citasi' })
+useHead({ title: 'Salircontigo' })
 </script>
 
 <template>

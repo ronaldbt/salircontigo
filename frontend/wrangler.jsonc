@@ -1,15 +1,14 @@
 {
-  "name": "citasi",
+  "name": "salircontigo",
   "pages_build_output_dir": "dist",
   "compatibility_date": "2026-10-18",
   "compatibility_flags": ["nodejs_compat"],
-  // Crea la base con: npx wrangler d1 create citasi
-  // Pega aquí el database_id que devuelva. Este uuid solo sirve en local.
+  // Base D1 salircontigo. El database_id es el de la cuenta de Cloudflare.
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "citasi",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_name": "salircontigo",
+      "database_id": "f6f3d748-bf3f-47c6-a14c-0cf0f9925a24",
       "migrations_dir": "migrations"
     }
   ]

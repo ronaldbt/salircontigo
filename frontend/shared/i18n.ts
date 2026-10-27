@@ -2,7 +2,7 @@ import type { Lang } from './types'
 
 const ui = {
   es: {
-    brand: 'citasi',
+    brand: 'salircontigo',
     login: 'Entrar',
     register: 'Crear cuenta',
     logout: 'Salir',
@@ -162,7 +162,7 @@ const ui = {
     },
   },
   en: {
-    brand: 'citasi',
+    brand: 'salircontigo',
     login: 'Log in',
     register: 'Create account',
     logout: 'Log out',
@@ -322,7 +322,7 @@ const ui = {
     },
   },
   pt: {
-    brand: 'citasi',
+    brand: 'salircontigo',
     login: 'Entrar',
     register: 'Criar conta',
     logout: 'Sair',

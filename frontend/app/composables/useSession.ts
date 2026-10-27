@@ -1,8 +1,8 @@
 import type { PublicUser } from '#shared/types'
 
 export function useSession() {
-  const user = useState<PublicUser | null>('citasi-user', () => null)
-  const loaded = useState('citasi-user-loaded', () => false)
+  const user = useState<PublicUser | null>('salircontigo-user', () => null)
+  const loaded = useState('salircontigo-user-loaded', () => false)
 
   async function refresh() {
     try {

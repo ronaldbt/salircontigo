@@ -8,13 +8,13 @@ const accepted = ref(false)
 
 const copy = computed(() => defaultCopy()[isLang(locale.value) ? locale.value : 'es'])
 
-useHead({ title: 'Citasi' })
+useHead({ title: 'Salircontigo' })
 </script>
 
 <template>
   <main class="mx-auto flex w-full max-w-xl flex-col items-center px-4 pb-16 text-center">
     <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-rose-400">{{ t.heroKicker }}</p>
-    <h1 class="mt-2 font-display text-6xl leading-none">citasi</h1>
+    <h1 class="mt-2 font-display text-6xl leading-none">salircontigo</h1>
     <p class="mt-4 max-w-md text-lg leading-relaxed text-wine/80">{{ t.heroText }}</p>
     <p class="mt-2 max-w-md text-sm leading-relaxed text-wine/70">{{ t.heroMore }}</p>
 

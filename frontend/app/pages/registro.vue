@@ -29,7 +29,7 @@ async function submit() {
   }
 }
 
-useHead({ title: 'Citasi' })
+useHead({ title: 'Salircontigo' })
 </script>
 
 <template>

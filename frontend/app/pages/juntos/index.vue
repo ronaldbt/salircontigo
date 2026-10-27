@@ -25,7 +25,7 @@ async function createRoom() {
   }
 }
 
-useHead({ title: 'Citasi' })
+useHead({ title: 'Salircontigo' })
 </script>
 
 <template>

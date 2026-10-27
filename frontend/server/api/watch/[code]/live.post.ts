@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   setHeader(event, 'cache-control', 'no-store')
   const raw = await readRawBody(event, false)
   if (!raw?.length || raw.length > 4_000_000) return { ok: false }
-  const mime = String(getHeader(event, 'x-citasi-mime') || '').slice(0, 80)
+  const mime = String(getHeader(event, 'x-salircontigo-mime') || '').slice(0, 80)
   pushLive(code, new Uint8Array(raw), mime)
   return { ok: true }
 })

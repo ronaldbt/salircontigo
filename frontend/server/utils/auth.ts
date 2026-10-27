@@ -3,7 +3,7 @@ import type { H3Event } from 'h3'
 import { MAX_INVITES, type PublicUser, type User } from '#shared/types'
 import { fail, findUserById, sqlFor } from './db'
 
-const COOKIE = 'citasi_session'
+const COOKIE = 'salircontigo_session'
 
 export function hashPassword(password: string, salt = randomBytes(16).toString('hex')) {
   const passwordHash = pbkdf2Sync(password, salt, 120000, 32, 'sha256').toString('hex')
@@ -21,7 +21,7 @@ export function sessionSecret(event?: H3Event) {
   return event?.context.cloudflare?.env?.NUXT_SESSION_SECRET
     || process.env.NUXT_SESSION_SECRET
     || useRuntimeConfig().sessionSecret
-    || 'citasi-dev-secret-change-me'
+    || 'salircontigo-dev-secret-change-me'
 }
 
 export function signSession(userId: string, event?: H3Event) {

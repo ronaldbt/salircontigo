@@ -215,7 +215,7 @@ export function messageFor(invite: Invite, response: Pick<InviteResponse, 'lang'
     en: { day: 'Day', time: 'Time', plan: 'Plan' },
     pt: { day: 'Dia', time: 'Hora', plan: 'Plano' },
   }[lang]
-  const lines = [`Citasi — ${yes}`]
+  const lines = [`Salircontigo — ${yes}`]
   if (response.date) lines.push(`${labels.day}: ${formatInviteDate(response.date, lang)}`)
   if (response.time) lines.push(`${labels.time}: ${response.time}`)
   const plan = foodLabel(invite.foods, response.foodId, lang)

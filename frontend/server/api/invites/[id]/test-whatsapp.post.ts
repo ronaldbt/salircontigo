@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
 
   const ok = await sendCallmebot(
     invite.whatsapp,
-    'Citasi — mensaje de prueba. Si lees esto, el aviso funciona.',
+    'Salircontigo — mensaje de prueba. Si lees esto, el aviso funciona.',
     invite.callmebotKey,
   )
   if (!ok) fail(400, 'notify_failed')

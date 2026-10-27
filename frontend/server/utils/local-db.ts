@@ -7,7 +7,7 @@ let cached: Db | undefined
 
 export function localDb(): Db {
   if (cached) return cached
-  const file = join(process.cwd(), '.data', 'citasi.sqlite')
+  const file = join(process.cwd(), '.data', 'salircontigo.sqlite')
   mkdirSync(dirname(file), { recursive: true })
   const database = new DatabaseSync(file)
   database.exec('PRAGMA foreign_keys = ON')
